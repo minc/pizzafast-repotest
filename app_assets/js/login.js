@@ -3,7 +3,12 @@ $(document).ready(){
 		var usuario = $("#txtUsuario").val();
 		var senha = $("#passSenha").val();
 		$.ajax({
-			url: ""
+			type: "POST",
+			url: "http://pizzafast.minc.net.br/pizzafast-repotest/controller/login.php",
+			data: { usuario: usuario, senha: senha },
+			success: function(resultado){
+				console.log("Teste!");
+			}
 		});
 	});
 }
