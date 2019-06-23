@@ -1,4 +1,4 @@
-$(document).ready(){
+$(document).ready(function(){
 	$("#btnLogin").click(function(){
 		var usuario = $("#txtUsuario").val();
 		var senha = $("#passSenha").val();
@@ -11,4 +11,4 @@ $(document).ready(){
 			}
 		});
 	});
-}
+});
