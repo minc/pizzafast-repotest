@@ -5,7 +5,11 @@
 	$usuario = $_POST["usuario"];
 	$senha = $_POST["senha"];
 
-	$query = mysql_query("DESC mincn694_pizzafast.USUARIO");
-	echo mysql_fetch_array($query);
+	if ($mysqli->connect_errno){
+		printf("Connect failed: %s\n", $mysqli->connect_error);
+		exit();
+	} else {
+		echo "Sucesso!";
+	}
 
 ?>
