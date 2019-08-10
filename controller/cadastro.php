@@ -52,30 +52,33 @@
 			$mysqli->rollback();
 			echo 0;
 			$mysqli->close();
+			exit;
 		} else {
-			if ($result = mysqli_query($mysqli,
-				"SELECT
-					ID_END
-				FROM
-					ENDERECO
-				WHERE
-					LOGRADOURO_END = '" . $logradouro . "'
-				AND
-					NUMERO_END = '" . $numero . "'
-				AND
-					CEP_END = '" . $cep . "'
-				LIMIT 1")) {
-				$row = $result->fetch_array(MYSQLI_ASSOC);
-				$idEndereco = $row["ID_END"];
-				echo $idEndereco;
-				exit;
-			}
 			if (mysqli_query($mysqli,
-				"")) {
+				"INSERT INTO
+					CLIENTE
+						(
+							NOME_CLI,
+							LOGIN_CLI,
+							DATA_CADASTRO_CLI,
+							STATUS_CLI,
+							SENHA_CLI,
+							EMAIL_CLI
+						)
+					VALUES
+						(
+							'" . $nome . "',
+							'" . $usuario . "',
+							'" . $dataAtual . "',
+							'1',
+							'" . $senha . "',
+							'" . $email . "'
+						)")) {
 				if ($mysqli->affected_rows == 0) {
 					$mysqli->rollback();
 					echo 0;
 					$mysqli->close();
+					exit;
 				} else {
 					if (mysqli_query($mysqli,
 						"INSERT INTO
@@ -93,30 +96,49 @@
 								)")) {
 						if ($mysqli->affected_rows > 0) {
 							$mysqli->commit();
-							echo 1;
-							$mysqli->close();
-							exit;
 						} else {
 							$mysqli->rollback();
 							echo 0;
 							$mysqli->close();
+							exit;
 						}
 					} else {
 						$mysqli->rollback();
 						echo 0;
 						$mysqli->close();
+						exit;
 					}
 				}
 			} else {
 				$mysqli->rollback();
 				echo 0;
 				$mysqli->close();
+				exit;
 			}
 		}
 	} else {
 		$mysqli->rollback();
 		echo 0;
 		$mysqli->close();
+		exit;
+	}
+
+	if ($result = mysqli_query($mysqli,
+		"SELECT
+			ID_END
+		FROM
+			ENDERECO
+		WHERE
+			LOGRADOURO_END = '" . $logradouro . "'
+		AND
+			NUMERO_END = '" . $numero . "'
+		AND
+			CEP_END = '" . $cep . "'
+		LIMIT 1")) {
+		$row = $result->fetch_array(MYSQLI_ASSOC);
+		$idEndereco = $row["ID_END"];
+		echo $idEndereco;
+		exit;
 	}
 
 ?>
