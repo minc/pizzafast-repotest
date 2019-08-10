@@ -97,7 +97,6 @@
 						if ($mysqli->affected_rows > 0) {
 							$mysqli->commit();
 							echo 1;
-							break;
 						} else {
 							$mysqli->rollback();
 							echo 0;
