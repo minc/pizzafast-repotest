@@ -26,7 +26,7 @@
 		exit();
 	}
 
-	if ($result = mysqli_query($mysqli,
+	/*if ($result = mysqli_query($mysqli,
 		"INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, DATA_CADASTRO_USUARIO, EMAIL_USUARIO) VALUES ('" . $nome . "', '" . $usuario . "', '" . $senha . "', '1', '" . $dataAtual . "', '""')")) {
 		if (mysqli_num_rows($result) == 1) {
 			$row = $result->fetch_array(MYSQLI_ASSOC);
@@ -37,7 +37,7 @@
 		}
 	} else {
 		echo "Falha na query!";
-	}
+	}*/
 
 	$mysqli->close();
 
