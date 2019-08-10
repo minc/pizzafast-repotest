@@ -27,7 +27,7 @@
 	}
 
 	if (mysqli_query($mysqli,
-		"***INSERT INTO
+		"INSERT INTO
 			USUARIO
 				(
 					NOME_USUARIO,
