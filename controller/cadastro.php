@@ -27,7 +27,7 @@
 	}
 
 	if (mysqli_query($mysqli,
-		"INSERT INTO
+		"***INSERT INTO
 			USUARIO
 				(
 					NOME_USUARIO,
@@ -47,8 +47,9 @@
 					'" . $email . "'
 				)")) {
 		if ($mysqli->affected_rows == 0) {
+			$mysqli->rollback();
 			echo 0;
-			exit();
+			$mysqli->close();
 		} else {
 			if (mysqli_query($mysqli,
 				"INSERT INTO
@@ -73,8 +74,9 @@
 							'" . $complemento . "'
 						)")) {
 				if ($mysqli->affected_rows == 0) {
+					$mysqli->rollback();
 					echo 0;
-					exit();
+					$mysqli->close();
 				} else {
 					if (mysqli_query($mysqli,
 						"INSERT INTO
@@ -91,27 +93,31 @@
 									'" . $celular . "'
 								)")) {
 						if ($mysqli->affected_rows > 0) {
-							$mysqli->rollback();
+							$mysqli->commit();
 							echo 1;
 							$mysqli->close();
 							exit;
 						} else {
+							$mysqli->rollback();
 							echo 0;
-							exit;
+							$mysqli->close();
 						}
 					} else {
+						$mysqli->rollback();
 						echo 0;
-						exit;
+						$mysqli->close();
 					}
 				}
 			} else {
+				$mysqli->rollback();
 				echo 0;
-				exit;
+				$mysqli->close();
 			}
 		}
 	} else {
+		$mysqli->rollback();
 		echo 0;
-		exit;
+		$mysqli->close();
 	}
 
 ?>
