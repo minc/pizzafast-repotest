@@ -28,51 +28,50 @@
 
 	if (mysqli_query($mysqli,
 		"INSERT INTO
-			USUARIO
+			ENDERECO
 				(
-					NOME_USUARIO,
-					LOGIN_USUARIO,
-					SENHA_USUARIO,
-					STATUS_USUARIO,
-					DATA_CADASTRO_USUARIO,
-					EMAIL_USUARIO
+					LOGRADOURO_END,
+					NUMERO_END,
+					BAIRRO_END,
+					CEP_END,
+					CIDADE_END,
+					UF_END,
+					COMPLEMENTO_END
 				)
 			VALUES
 				(
-					'" . $nome . "',
-					'" . $usuario . "',
-					'" . $senha . "',
-					'1',
-					'" . $dataAtual . "',
-					'" . $email . "'
+					'" . $logradouro . "',
+					'" . $numero . "',
+					'" . $bairro . "',
+					'" . $cep . "',
+					'" . $cidade . "',
+					'" . $uf . "',
+					'" . $complemento . "'
 				)")) {
 		if ($mysqli->affected_rows == 0) {
 			$mysqli->rollback();
 			echo 0;
 			$mysqli->close();
 		} else {
-			if (mysqli_query($mysqli,
-				"INSERT INTO
+			if ($result = mysqli_query($mysqli,
+				"SELECT
+					ID_END
+				FROM
 					ENDERECO
-						(
-							LOGRADOURO_END,
-							NUMERO_END,
-							BAIRRO_END,
-							CEP_END,
-							CIDADE_END,
-							UF_END,
-							COMPLEMENTO_END
-						)
-					VALUES
-						(
-							'" . $logradouro . "',
-							'" . $numero . "',
-							'" . $bairro . "',
-							'" . $cep . "',
-							'" . $cidade . "',
-							'" . $uf . "',
-							'" . $complemento . "'
-						)")) {
+				WHERE
+					LOGRADOURO_END = '" . $logradouro . "'
+				AND
+					NUMERO_END = '" . $numero . "'
+				AND
+					CEP_END = '" . $cep . "'
+				LIMIT 1")) {
+				$row = $result->fetch_array(MYSQLI_ASSOC);
+				$idEndereco = $row["ID_END"];
+				echo $idEndereco;
+				exit;
+			}
+			if (mysqli_query($mysqli,
+				"")) {
 				if ($mysqli->affected_rows == 0) {
 					$mysqli->rollback();
 					echo 0;
