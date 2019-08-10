@@ -96,7 +96,6 @@
 								)")) {
 						if ($mysqli->affected_rows > 0) {
 							$mysqli->commit();
-							echo 1;
 						} else {
 							$mysqli->rollback();
 							echo 0;
@@ -126,7 +125,7 @@
 
 	//**//**//
 
-	if ($result = $mysqli->query(
+	if ($result = mysqli_query($mysqli,
 		"SELECT
 			ID_END
 		FROM
