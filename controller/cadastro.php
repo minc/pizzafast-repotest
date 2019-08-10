@@ -2,6 +2,8 @@
 
 	include("factoryConn.php");
 
+	$mysqli->autocommit(FALSE);
+
 	$nome = $_POST["nome"];
 	$usuario = $_POST["usuario"];
 	$senha = $_POST["senha"];
@@ -45,7 +47,7 @@
 					'" . $email . "'
 				)")) {
 		if ($mysqli->affected_rows == 0) {
-			echo "Falha!";
+			echo 0;
 			exit();
 		} else {
 			if (mysqli_query($mysqli,
@@ -71,7 +73,7 @@
 							'" . $complemento . "'
 						)")) {
 				if ($mysqli->affected_rows == 0) {
-					echo "Falha!";
+					echo 0;
 					exit();
 				} else {
 					if (mysqli_query($mysqli,
@@ -89,22 +91,27 @@
 									'" . $celular . "'
 								)")) {
 						if ($mysqli->affected_rows > 0) {
-							echo "Sucesso!";
+							$mysqli->rollback();
+							echo 1;
+							$mysqli->close();
+							exit;
 						} else {
-							echo "Não entrou no IF!";
+							echo 0;
+							exit;
 						}
 					} else {
-						echo "Falha na query 3!";
+						echo 0;
+						exit;
 					}
 				}
 			} else {
-				echo "Falha na query 2!";
+				echo 0;
+				exit;
 			}
 		}
 	} else {
-		echo "Falha na query 1!";
+		echo 0;
+		exit;
 	}
-
-	$mysqli->close();
 
 ?>
