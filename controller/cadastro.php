@@ -24,15 +24,41 @@
 		exit();
 	}
 
-	if ($result = mysqli_query($mysqli,
-		"INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, STATUS_USUARIO, DATA_CADASTRO_USUARIO, EMAIL_USUARIO) VALUES ('" . $nome . "', '" . $usuario . "', '" . $senha . "', '1', '" . $dataAtual . "', '" . $email . "')")) {
-		if ($mysqli->affected_rows > 0) {
-			echo "Sucesso!";
+	if (mysqli_query($mysqli,
+		"INSERT INTO
+			USUARIO
+				(
+					NOME_USUARIO,
+					LOGIN_USUARIO,
+					SENHA_USUARIO,
+					STATUS_USUARIO,
+					DATA_CADASTRO_USUARIO,
+					EMAIL_USUARIO
+				)
+			VALUES
+				(
+					'" . $nome . "',
+					'" . $usuario . "',
+					'" . $senha . "',
+					'1',
+					'" . $dataAtual . "',
+					'" . $email . "')")) {
+		if ($mysqli->affected_rows == 0) {
+			echo "Falha!";
+			exit();
 		} else {
-			echo "Não entrou no IF!";
+			if (mysqli_query($mysqli, "INSERT INTO ENDERECO (LOGRADOURO_END, NUMERO_END, BAIRRO_END, CEP_END, CIDADE_END, UF_END, COMPLEMENTO_END) VALUES ('" . $logradouro . "', '" . $numero . "', '" . $bairro . "', '" . $cep . "', '" . $cidade . "', '" . $uf . "', '" . $complemento . "')")) {
+				if ($mysqli->affected_rows > 0) {
+					echo "Sucesso!";
+				} else {
+					echo "Não entrou no IF!";
+				}
+			} else {
+				echo "Falha na query 2!";
+			}
 		}
 	} else {
-		echo "Falha na query!";
+		echo "Falha na query 1!";
 	}
 
 	$mysqli->close();
