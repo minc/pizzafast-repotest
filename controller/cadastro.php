@@ -42,16 +42,60 @@
 					'" . $senha . "',
 					'1',
 					'" . $dataAtual . "',
-					'" . $email . "')")) {
+					'" . $email . "'
+				)")) {
 		if ($mysqli->affected_rows == 0) {
 			echo "Falha!";
 			exit();
 		} else {
-			if (mysqli_query($mysqli, "INSERT INTO ENDERECO (LOGRADOURO_END, NUMERO_END, BAIRRO_END, CEP_END, CIDADE_END, UF_END, COMPLEMENTO_END) VALUES ('" . $logradouro . "', '" . $numero . "', '" . $bairro . "', '" . $cep . "', '" . $cidade . "', '" . $uf . "', '" . $complemento . "')")) {
-				if ($mysqli->affected_rows > 0) {
-					echo "Sucesso!";
+			if (mysqli_query($mysqli,
+				"INSERT INTO
+					ENDERECO
+						(
+							LOGRADOURO_END,
+							NUMERO_END,
+							BAIRRO_END,
+							CEP_END,
+							CIDADE_END,
+							UF_END,
+							COMPLEMENTO_END
+						)
+					VALUES
+						(
+							'" . $logradouro . "',
+							'" . $numero . "',
+							'" . $bairro . "',
+							'" . $cep . "',
+							'" . $cidade . "',
+							'" . $uf . "',
+							'" . $complemento . "'
+						)")) {
+				if ($mysqli->affected_rows == 0) {
+					echo "Falha!";
+					exit();
 				} else {
-					echo "Não entrou no IF!";
+					if (mysqli_query($mysqli,
+						"INSERT INTO
+							CONTATO
+								(
+									DDD_CONTATO,
+									TIPO_CONTATO,
+									NUMERO_CONTATO
+								)
+							VALUES
+								(
+									'" . $ddd . "',
+									'1',
+									'" . $celular . "'
+								)")) {
+						if ($mysqli->affected_rows > 0) {
+							echo "Sucesso!";
+						} else {
+							echo "Não entrou no IF!";
+						}
+					} else {
+						echo "Falha na query 3!";
+					}
 				}
 			} else {
 				echo "Falha na query 2!";
