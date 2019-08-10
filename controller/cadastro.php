@@ -137,7 +137,7 @@
 		LIMIT 1")) {
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		$idEndereco = $row["ID_END"];
-		echo $idEndereco;
+		echo "Teste: " . $idEndereco;
 		exit;
 	}
 
