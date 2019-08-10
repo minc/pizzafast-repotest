@@ -26,7 +26,7 @@
 		exit();
 	}
 
-	/*if (mysqli_query($mysqli,
+	if (mysqli_query($mysqli,
 		"INSERT INTO
 			ENDERECO
 				(
@@ -96,6 +96,7 @@
 								)")) {
 						if ($mysqli->affected_rows > 0) {
 							$mysqli->commit();
+							echo 1;
 						} else {
 							$mysqli->rollback();
 							echo 0;
@@ -121,21 +122,9 @@
 		echo 0;
 		$mysqli->close();
 		exit;
-	}*/
+	}
 
 	//**//**//
-
-	echo "SELECT
-			ID_END
-		FROM
-			ENDERECO
-		WHERE
-			LOGRADOURO_END = '" . $logradouro . "'
-		AND
-			NUMERO_END = '" . $numero . "'
-		AND
-			CEP_END = '" . $cep . "'
-		LIMIT 1";
 
 	if ($result = $mysqli->query(
 		"SELECT
@@ -149,7 +138,7 @@
 		AND
 			CEP_END = '" . $cep . "'
 		LIMIT 1")) {
-		$mysqli->commit();
+		//$mysqli->commit();
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		echo $row;
 		$idEndereco = $row["ID_END"];
