@@ -125,6 +125,18 @@
 
 	//**//**//
 
+	echo "SELECT
+			ID_END
+		FROM
+			ENDERECO
+		WHERE
+			LOGRADOURO_END = '" . $logradouro . "'
+		AND
+			NUMERO_END = '" . $numero . "'
+		AND
+			CEP_END = '" . $cep . "'
+		LIMIT 1";
+
 	if ($result = $mysqli->query(
 		"SELECT
 			ID_END
