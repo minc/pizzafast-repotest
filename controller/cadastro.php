@@ -26,7 +26,7 @@
 		exit();
 	}
 
-	if (mysqli_query($mysqli,
+	/*if (mysqli_query($mysqli,
 		"INSERT INTO
 			ENDERECO
 				(
@@ -121,9 +121,11 @@
 		echo 0;
 		$mysqli->close();
 		exit;
-	}
+	}*/
 
-	if ($result = mysqli_query($mysqli,
+	//**//**//
+
+	if ($result = $mysqli->query(
 		"SELECT
 			ID_END
 		FROM
@@ -135,7 +137,7 @@
 		AND
 			CEP_END = '" . $cep . "'
 		LIMIT 1")) {
-		$mysqli->commit();
+		//$mysqli->commit();
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		echo $row;
 		$idEndereco = $row["ID_END"];
