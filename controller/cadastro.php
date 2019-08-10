@@ -135,6 +135,7 @@
 		AND
 			CEP_END = '" . $cep . "'
 		LIMIT 1")) {
+		$mysqli->commit();
 		$row = $result->fetch_array(MYSQLI_ASSOC);
 		echo $row;
 		$idEndereco = $row["ID_END"];
