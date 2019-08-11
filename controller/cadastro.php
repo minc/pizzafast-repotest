@@ -139,21 +139,52 @@
 		ORDER BY
 			DESC
 		LIMIT 1")) {
-		$row = $result->fetch_array(MYSQLI_ASSOC);
-		$idEndereco = $row["ID_END"];
-		if (mysqli_query($mysqli,
-			"UPDATE
-				CLIENTE
-			SET
-				ENDERECO_ID_END = '" . $idEndereco . "'
-			WHERE
-				LOGIN_CLI = '" . $usuario . "'
-			AND
-				SENHA_CLI = '" . $senha . "'
-			AND
-				EMAIL_CLI = '" . $email . "'")) {
-			if ($mysqli->affected_rows == 1) {
-				$mysqli->commit();
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_array(MYSQLI_ASSOC);
+			$idEndereco = $row["ID_END"];
+			if (mysqli_query($mysqli,
+				"UPDATE
+					CLIENTE
+				SET
+					ENDERECO_ID_END = '" . $idEndereco . "'
+				WHERE
+					LOGIN_CLI = '" . $usuario . "'
+				AND
+					SENHA_CLI = '" . $senha . "'
+				AND
+					EMAIL_CLI = '" . $email . "'")) {
+				if ($mysqli->affected_rows == 0) {
+					$mysqli->rollback();
+					echo 0;
+					$mysqli->close();
+					exit;
+				} else {
+					if (mysqli_query($mysqli,
+						"UPDATE
+							CONTATO
+						SET
+							ENDERECO_ID_END = '" . $idEndereco . "'
+						WHERE
+							DDD_CONTATO = '" . $ddd . "'
+						AND
+							NUMERO_CONTATO = '" . $celular . "'")) {
+						if ($mysqli->affected_rows > 0) {
+							$mysqli->commit();
+							echo 1;
+							$mysqli->close();
+						} else {
+							$mysqli->rollback();
+							echo 0;
+							$mysqli->close();
+							exit;
+						}
+					} else {
+						$mysqli->rollback();
+						echo 0;
+						$mysqli->close();
+						exit;
+					}
+				}
 			} else {
 				$mysqli->rollback();
 				echo 0;
@@ -161,7 +192,6 @@
 				exit;
 			}
 		} else {
-			$mysqli->rollback();
 			echo 0;
 			$mysqli->close();
 			exit;
