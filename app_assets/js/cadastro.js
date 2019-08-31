@@ -13,6 +13,9 @@ $(document).ready(function(){
 		var ddd = $("#txtDDD").val();
 		var celular = $("#txtCelular").val();
 		var email = $("#txtEmail").val();
+		if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || complemento == "" || complemento == null || complemento == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
+			
+		}
 		Swal.fire({
 			type: 'error',
 		  	title: 'Oops...',
