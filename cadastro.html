@@ -34,13 +34,13 @@
                   </div>
                   <div class="form-group">
                     <label>Nome</label>
-                    <input type="text" class="form-control" id="txtNome" name="first_name" value="" placeholder="Insira o nome">
+                    <input type="text" class="form-control" id="txtNome" name="first_name" value="" placeholder="Insira o nome" maxlength="100">
                   </div>
                   <div class="row">
                     <div class="col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Usuário</label>
-                        <input type="text" id="txtUsuario" name="password" value="" class="form-control" placeholder="Insira o usuário">
+                        <input type="text" id="txtUsuario" name="password" value="" class="form-control" placeholder="Insira o usuário" maxlength="50">
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
@@ -55,7 +55,7 @@
                     <div class="col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>CEP</label>
-                        <input type="text" id="txtCEP" name="password" value="" class="form-control" placeholder="Insira o CEP">
+                        <input type="text" id="txtCEP" name="password" value="" class="form-control" placeholder="Insira o CEP" maxlength="8">
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
@@ -73,13 +73,13 @@
                     <div class="col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Número</label>
-                        <input type="text" id="txtNumero" name="password" value="" class="form-control" placeholder="Insira o número">
+                        <input type="text" id="txtNumero" name="password" value="" class="form-control" placeholder="Insira o número" maxlength="6">
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Complemento</label>
-                        <input type="text" id="txtComplemento" name="password_confirmation" value="" class="form-control" placeholder="Insira o complemento">
+                        <input type="text" id="txtComplemento" name="password_confirmation" value="" class="form-control" placeholder="Insira o complemento" maxlength="50">
                       </div>
                     </div>
                   </div>          
@@ -96,19 +96,19 @@
                     <div class="col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>DDD</label>
-                        <input type="text" id="txtDDD" name="password" value="" class="form-control" placeholder="Insira o DDD">
+                        <input type="text" id="txtDDD" name="password" value="" class="form-control" placeholder="Insira o DDD" maxlength="2">
                       </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Celular</label>
-                        <input type="text" id="txtCelular" name="password_confirmation" value="" class="form-control" placeholder="Insira o celular">
+                        <input type="text" id="txtCelular" name="password_confirmation" value="" class="form-control" placeholder="Insira o celular" maxlength="9">
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label>E-mail</label>
-                    <input type="text" id="txtEmail" name="email" value="" class="form-control" placeholder="Insira o e-mail">
+                    <input type="text" id="txtEmail" name="email" value="" class="form-control" placeholder="Insira o e-mail" maxlength="100">
                   </div>
                   <button type="button" class="btn btn-submit" id="btnCadastrar">Cadastrar&nbsp;&nbsp;<i class="fa fa-user"></i></button>
                   <button type="button" class="btn btn-submit" onclick="location.href='index.html'">Voltar&nbsp;&nbsp;&nbsp;<i class="fa fa-undo"></i></button>
@@ -132,6 +132,8 @@
       <script src="app_assets/js/own-menu.js"></script>  
       <script src="app_assets/js/main.js"></script> 
       <script src="app_assets/js/cadastro.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+      <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     </div>
   </body>
 </html>
