@@ -3,6 +3,7 @@ $(document).ready(function(){
 		var nome = $("#txtNome").val();
 		var usuario = $("#txtUsuario").val();
 		var senha = $("#passSenha").val();
+		var confirmaSenha = $("#passConfirmaSenha").val();
 		var cep = $("#txtCEP").val();
 		var uf = $("#txtUF").val();
 		var logradouro = $("#txtLogradouro").val();
@@ -13,13 +14,19 @@ $(document).ready(function(){
 		var ddd = $("#txtDDD").val();
 		var celular = $("#txtCelular").val();
 		var email = $("#txtEmail").val();
-		if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
+		if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
 			Swal.fire({
 				type: 'error',
 				title: 'Erro!',
 				text: 'Preencha todos os campos obrigatórios!'
 			});
 			return;
+		} else if (confirmaSenha != senha) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Resultado negativo na confirmação de senha!'
+			});
 		} else {
 			$.ajax({
 				type: "POST",
