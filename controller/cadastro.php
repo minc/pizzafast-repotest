@@ -20,30 +20,24 @@
 
 	$dataAtual = date("Y-m-d H:i:s");
 
-	/* check connection */
-	if ($mysqli->connect_errno){
+	if ($mysqli->connect_errno) {
 		printf("A conexão falhou: %s\n", $mysqli->connect_error);
 		exit();
 	}
 
+	//verifica se o usuário já foi cadastrado antes.
+
 	if ($result = mysqli_query($mysqli,
 		"SELECT
-			ID_CLI,
-			LOGIN_CLI
+			ID_CLI
 		FROM
 			CLIENTE
 		WHERE
-			LOGIN_CLI = '" . $usuario . "'
-		ORDER BY
-			ID_CLI
-		DESC
-		LIMIT 1")) {
+			LOGIN_CLI = '" . $usuario . "'")) {
 		if ($result->num_rows > 0) {
 			echo 2;
 			$mysqli->close();
 			exit;
-		} else {
-			//$mysqli->commit();
 		}
 	} else {
 		echo 0;
@@ -51,7 +45,61 @@
 		exit;
 	}
 
-	//**//**//
+	//verifica se as informações de endereço e contato já foram cadastradas antes.
+
+	if ($result = mysql_query($mysqli,
+		"SELECT
+			ID_END
+		FROM
+			ENDERECO
+		WHERE
+			LOGRADOURO_END = '" . $logradouro . "'
+		AND
+			NUMERO_END = '" . $numero . "'
+		AND
+			BAIRRO_END = '" . $bairro . "'
+		AND
+			CEP_END = '" . $cep . "'
+		AND
+			CIDADE_END = '" . $cidade . "'
+		AND
+			UF_END = '" . $uf . "'")) {
+		if ($result->num_rows > 0) {
+			$enderecoBase = true;
+			$rowEndereco = $result->fetch_array(MYSQLI_ASSOC);
+			$idEndereco = $rowEndereco["ID_END"];
+		} else {
+			$enderecoBase = false;
+		}
+	} else {
+		echo 0;
+		$mysqli->close();
+		exit;
+	}
+
+	if ($result = mysqli_query($mysqli,
+		"SELECT
+			ID_CONTATO
+		FROM
+			CONTATO
+		WHERE
+			DDD_CONTATO = '" . $ddd . "'
+		AND
+			TIPO_CONTATO = '1'
+		AND
+			NUMERO_CONTATO = '" . $celular . "'")) {
+		if ($result->num_rows > 0) {
+			$contatoBase = true;
+		} else {
+			$contatoBase = false;
+		}
+	} else {
+		echo 0;
+		$mysqli->close();
+		exit;
+	}
+
+	//realiza os INSERTs nas tabelas da base de dados.
 
 	if (mysqli_query($mysqli,
 		"INSERT INTO
@@ -75,12 +123,26 @@
 					'" . $uf . "',
 					'" . $complemento . "'
 				)")) {
-		if ($mysqli->affected_rows == 0) {
+		if ($mysqli->affected_rows == 0 || $enderecoBase) {
 			$mysqli->rollback();
-			echo 0;
-			$mysqli->close();
-			exit;
-		} else {
+		}
+		if (mysqli_query($mysqli,
+			"INSERT INTO
+				CONTATO
+					(
+						DDD_CONTATO,
+						TIPO_CONTATO,
+						NUMERO_CONTATO
+					)
+				VALUES
+					(
+						'" . $ddd . "',
+						'1',
+						'" . $celular . "'
+					)")) {
+			if ($mysqli->affected_rows == 0 || $contatoBase) {
+				$mysqli->rollback();
+			}
 			if (mysqli_query($mysqli,
 				"INSERT INTO
 					CLIENTE
@@ -101,40 +163,106 @@
 							'" . $senha . "',
 							'" . $email . "'
 						)")) {
-				if ($mysqli->affected_rows == 0) {
+				if ($mysqli->affected_rows > 0) {
+					//$mysqli->commit();
+				} else {
 					$mysqli->rollback();
 					echo 0;
 					$mysqli->close();
 					exit;
+				}
+			} else {
+				$mysqli->rollback();
+				echo 0;
+				$mysqli->close();
+				exit;
+			}
+		} else {
+			$mysqli->rollback();
+			echo 0;
+			$mysqli->close();
+			exit;
+		}
+	} else {
+		$mysqli->rollback();
+		echo 0;
+		$mysqli->close();
+		exit;
+	}
+
+	//realiza os UPDATEs de ligação das tabelas da base de dados.
+
+	if (!$enderecoBase) {
+		if ($result = mysql_query($mysqli,
+			"SELECT
+				ID_END
+			FROM
+				ENDERECO
+			WHERE
+				LOGRADOURO_END = '" . $logradouro . "'
+			AND
+				NUMERO_END = '" . $numero . "'
+			AND
+				BAIRRO_END = '" . $bairro . "'
+			AND
+				CEP_END = '" . $cep . "'
+			AND
+				CIDADE_END = '" . $cidade . "'
+			AND
+				UF_END = '" . $uf . "'")) {
+			if ($result->num_rows > 0) {
+				$rowEndereco = $result->fetch_array(MYSQLI_ASSOC);
+				$idEndereco = $rowEndereco["ID_END"];
+			}
+		} else {
+			echo 0;
+			$mysqli->close();
+			exit;
+		}
+	}
+
+	if (mysqli_query($mysqli,
+		"UPDATE
+			CLIENTE
+		SET
+			ENDERECO_ID_END = '" . $idEndereco . "'
+		WHERE
+			NOME_CLI = '" . $nome . "'
+		AND
+			LOGIN_CLI = '" . $usuario . "'
+		AND
+			STATUS_CLI = '1'
+		AND
+			SENHA_CLI = '" . $senha . "'
+		AND
+			EMAIL_CLI = '" . $email . "'")) {
+		if ($mysqli->affected_rows == 0) {
+			$mysqli->rollback();
+			echo 0;
+			$mysqli->close();
+			exit;
+		} else {
+			if (mysqli_query($mysqli,
+				"UPDATE
+					CONTATO
+				SET
+					ENDERECO_ID_END = '" . $idEndereco . "'
+				WHERE
+					DDD_CONTATO = '" . $ddd . "'
+				AND
+					TIPO_CONTATO = '1'
+				AND
+					NUMERO_CONTATO = '" . $celular . "'")) {
+				if ($mysqli->affected_rows > 0) {
+					$mysqli->commit();
+					echo 1;
+					$mysqli->close();
+					exit;
 				} else {
-					if (mysqli_query($mysqli,
-						"INSERT INTO
-							CONTATO
-								(
-									DDD_CONTATO,
-									TIPO_CONTATO,
-									NUMERO_CONTATO
-								)
-							VALUES
-								(
-									'" . $ddd . "',
-									'1',
-									'" . $celular . "'
-								)")) {
-						if ($mysqli->affected_rows > 0) {
-							//$mysqli->commit();
-						} else {
-							$mysqli->rollback();
-							echo 0;
-							$mysqli->close();
-							exit;
-						}
-					} else {
-						$mysqli->rollback();
-						echo 0;
-						$mysqli->close();
-						exit;
-					}
+					$mysqli->rollback();
+					echo 0;
+					$mysqli->close();
+					exit;
 				}
 			} else {
 				$mysqli->rollback();
@@ -145,86 +273,6 @@
 		}
 	} else {
 		$mysqli->rollback();
-		echo 0;
-		$mysqli->close();
-		exit;
-	}
-
-	//**//**//
-
-	if ($result = mysqli_query($mysqli,
-		"SELECT
-			ID_END
-		FROM
-			ENDERECO
-		WHERE
-			LOGRADOURO_END = '" . $logradouro . "'
-		AND
-			NUMERO_END = '" . $numero . "'
-		AND
-			CEP_END = '" . $cep . "'
-		ORDER BY
-			DESC
-		LIMIT 1")) {
-		if ($result->num_rows > 0) {
-			$row = $result->fetch_array(MYSQLI_ASSOC);
-			$idEndereco = $row["ID_END"];
-			if (mysqli_query($mysqli,
-				"UPDATE
-					CLIENTE
-				SET
-					ENDERECO_ID_END = '" . $idEndereco . "'
-				WHERE
-					LOGIN_CLI = '" . $usuario . "'
-				AND
-					SENHA_CLI = '" . $senha . "'
-				AND
-					EMAIL_CLI = '" . $email . "'")) {
-				if ($mysqli->affected_rows == 0) {
-					$mysqli->rollback();
-					echo 0;
-					$mysqli->close();
-					exit;
-				} else {
-					if (mysqli_query($mysqli,
-						"UPDATE
-							CONTATO
-						SET
-							ENDERECO_ID_END = '" . $idEndereco . "'
-						WHERE
-							DDD_CONTATO = '" . $ddd . "'
-						AND
-							NUMERO_CONTATO = '" . $celular . "'")) {
-						if ($mysqli->affected_rows > 0) {
-							$mysqli->commit();
-							echo 1;
-							$mysqli->close();
-							exit;
-						} else {
-							$mysqli->rollback();
-							echo 0;
-							$mysqli->close();
-							exit;
-						}
-					} else {
-						$mysqli->rollback();
-						echo 0;
-						$mysqli->close();
-						exit;
-					}
-				}
-			} else {
-				$mysqli->rollback();
-				echo 0;
-				$mysqli->close();
-				exit;
-			}
-		} else {
-			echo 0;
-			$mysqli->close();
-			exit;
-		}
-	} else {
 		echo 0;
 		$mysqli->close();
 		exit;
