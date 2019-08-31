@@ -19,23 +19,38 @@ $(document).ready(function(){
 				title: 'Erro!',
 				text: 'Preencha todos os campos obrigatórios!'
 			});
-		}
-		/*$.ajax({
-			type: "POST",
-			url: "http://pizzafast.minc.net.br/pizzafast-repotest/controller/cadastro.php",
-			data: { nome : nome, usuario : usuario, senha : senha, cep : cep, uf : uf, logradouro : logradouro, numero : numero, complemento : complemento, bairro : bairro, cidade : cidade, ddd : ddd, celular : celular, email : email },
-			success: function(resultado){
-				if (resultado == 1) {
-					Swal.fire({
-						type: 'error',
-					  	title: 'Oops...',
-					  	text: 'Something went wrong!',
-					  	footer: '<a href>Why do I have this issue?</a>'
-					});
-				} else {
-
+			return;
+		} else {
+			$.ajax({
+				type: "POST",
+				url: "http://pizzafast.minc.net.br/pizzafast-repotest/controller/cadastro.php",
+				data: { nome : nome, usuario : usuario, senha : senha, cep : cep, uf : uf, logradouro : logradouro, numero : numero, complemento : complemento, bairro : bairro, cidade : cidade, ddd : ddd, celular : celular, email : email },
+				success: function(resultado){
+					if (resultado == 1) {
+						Swal.fire({
+							type: 'success',
+						  	title: 'Sucesso!',
+						  	text: 'Cadastro realizado com sucesso!',
+						  	footer: '<a href="index.html">Fazer login?</a>'
+						});
+						return;
+					} else if (resultado == 2) {
+						Swal.fire({
+							type: 'error',
+							title: 'Erro!',
+							text: 'Usuário cadastrado anteriormente!',
+							footer: '<a href="index.html">Fazer login?</a>'
+						});
+					} else {
+						Swal.fire({
+							type: 'error',
+							title: 'Erro!',
+							text: 'Falha ao realizar o cadastro!'
+						});
+						return;
+					}
 				}
-			}
-		});*/
+			});
+		}
 	});
 });

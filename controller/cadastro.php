@@ -26,6 +26,33 @@
 		exit();
 	}
 
+	if ($result = mysqli_query($mysqli,
+		"SELECT
+			ID_CLI,
+			LOGIN_CLI
+		FROM
+			CLIENTE
+		WHERE
+			LOGIN_CLI = '" . $usuario . "'
+		ORDER BY
+			ID_CLI
+		DESC
+		LIMIT 1")) {
+		if ($result->num_rows > 0) {
+			echo 2;
+			$mysqli->close();
+			exit;
+		} else {
+			//$mysqli->commit();
+		}
+	} else {
+		echo 0;
+		$mysqli->close();
+		exit;
+	}
+
+	//**//**//
+
 	if (mysqli_query($mysqli,
 		"INSERT INTO
 			ENDERECO
@@ -172,6 +199,7 @@
 							$mysqli->commit();
 							echo 1;
 							$mysqli->close();
+							exit;
 						} else {
 							$mysqli->rollback();
 							echo 0;
