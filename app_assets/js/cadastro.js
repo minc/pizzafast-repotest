@@ -26,9 +26,53 @@ function Onlychars(e) {
 	}
 }
 
+function validaEmail(email) {
+	var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+  	return regex.test(email);
+}
+
+function limpa_formulário_cep() {
+	$("#txtUF").val("");
+	$("#txtLogradouro").val("");
+	$("#txtBairro").val("");
+	$("#txtCidade").val("");
+}
+
 $(document).ready(function(){
 	$("#txtCEP").mask('99999-999');
 	$("#txtCelular").mask('9 9999-9999');
+	$("#txtCEP").blur(function(){
+		var cep = $(this).val().replace(/\D/g, '');
+		if (cep != "" && cep != null && cep != undefined) {
+			var validaCep = /^[0-9]{8}$/;
+			if (validaCep.test(cep)) {
+				$.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+					if (!("erro" in dados)) {
+						$("#txtUF").val(dados.uf);
+						$("#txtLogradouro").val(dados.logradouro);
+						$("#txtBairro").val(dados.bairro);
+						$("#txtCidade").val(dados.cidade);
+					} else {
+						limpa_formulário_cep();
+						Swal.fire({
+							type: 'error',
+							title: 'Erro!',
+							text: 'CEP não encontrado na base!'
+						});
+					}
+				});
+			} else {
+				limpa_formulário_cep();
+				Swal.fire({
+					type: 'error',
+					title: 'Erro!',
+					text: 'Formato de CEP inválido!'
+				});
+			}
+		} else {
+			limpa_formulário_cep();
+		}
+	});
 	$("#btnCadastrar").click(function(){
 		var nome = $("#txtNome").val();
 		var usuario = $("#txtUsuario").val();
@@ -47,8 +91,7 @@ $(document).ready(function(){
 		var celularFormatado = $("#txtCelular").val();
 		var celular = celularFormatado.split(" ")[0] + celularFormatado.split("-")[0].substr(2, 4) + celularFormatado.split("-")[1];
 		var email = $("#txtEmail").val();
-		console.log(celular);
-		/*if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
+		if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
 			Swal.fire({
 				type: 'error',
 				title: 'Erro!',
@@ -91,6 +134,18 @@ $(document).ready(function(){
 				title: 'Erro!',
 				text: 'Insira um DDD válido!'
 			});
+		} else if (celular < 9) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Insira um número de celular válido!'
+			});
+		} else if (!validaEmail(email)) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Insira um e-mail válido!'
+			});
 		} else {
 			$.ajax({
 				type: "POST",
@@ -120,6 +175,6 @@ $(document).ready(function(){
 					}
 				}
 			});
-		}*/
+		}
 	});
 });
