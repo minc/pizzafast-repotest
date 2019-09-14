@@ -215,6 +215,7 @@
 				$idEndereco = $rowEndereco["ID_END"];
 			}
 		} else {
+			$mysqli->rollback();
 			echo 0;
 			$mysqli->close();
 			exit;
