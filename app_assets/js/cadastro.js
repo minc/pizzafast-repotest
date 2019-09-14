@@ -28,6 +28,7 @@ function Onlychars(e) {
 
 $(document).ready(function(){
 	$("#txtCEP").mask('99999-999');
+	$("#txtCelular").mask('9 9999-9999');
 	$("#btnCadastrar").click(function(){
 		var nome = $("#txtNome").val();
 		var usuario = $("#txtUsuario").val();
@@ -43,9 +44,11 @@ $(document).ready(function(){
 		var bairro = $("#txtBairro").val();
 		var cidade = $("#txtCidade").val();
 		var ddd = $("#txtDDD").val();
-		var celular = $("#txtCelular").val();
+		var celularFormatado = $("#txtCelular").val();
+		var celular = celularFormatado.split(" ")[0] + celularFormatado.split("-")[0] + celularFormatado.split("-")[1];
 		var email = $("#txtEmail").val();
-		if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
+		console.log(celular);
+		/*if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
 			Swal.fire({
 				type: 'error',
 				title: 'Erro!',
@@ -82,6 +85,12 @@ $(document).ready(function(){
 				title: 'Erro!',
 				text: 'Insira um CEP válido!'
 			});
+		} else if (ddd.length < 2) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Insira um DDD válido!'
+			});
 		} else {
 			$.ajax({
 				type: "POST",
@@ -111,6 +120,6 @@ $(document).ready(function(){
 					}
 				}
 			});
-		}
+		}*/
 	});
 });
