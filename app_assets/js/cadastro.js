@@ -51,7 +51,7 @@ $(document).ready(function(){
 						$("#txtUF").val(dados.uf);
 						$("#txtLogradouro").val(dados.logradouro);
 						$("#txtBairro").val(dados.bairro);
-						$("#txtCidade").val(dados.cidade);
+						$("#txtCidade").val(dados.localidade);
 					} else {
 						limpa_formulário_cep();
 						Swal.fire({
