@@ -27,12 +27,15 @@ function Onlychars(e) {
 }
 
 $(document).ready(function(){
+	$("#txtCEP").mask('99999-999');
 	$("#btnCadastrar").click(function(){
 		var nome = $("#txtNome").val();
 		var usuario = $("#txtUsuario").val();
 		var senha = $("#passSenha").val();
 		var confirmaSenha = $("#passConfirmaSenha").val();
-		var cep = $("#txtCEP").val();
+		var cepFormatado = $("#txtCEP").val();
+		var cepSeparado = cepFormatado.split("-");
+		var cep = cepSeparado[0] + cepSeparado[1];
 		var uf = $("#txtUF").val();
 		var logradouro = $("#txtLogradouro").val();
 		var numero = $("#txtNumero").val();
@@ -42,7 +45,8 @@ $(document).ready(function(){
 		var ddd = $("#txtDDD").val();
 		var celular = $("#txtCelular").val();
 		var email = $("#txtEmail").val();
-		if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
+		console.log(cep);
+		/*if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
 			Swal.fire({
 				type: 'error',
 				title: 'Erro!',
@@ -60,6 +64,24 @@ $(document).ready(function(){
 				type: 'error',
 				title: 'Erro!',
 				text: 'Insira uma senha com 8 dígitos ou mais!'
+			});
+		} else if (usuario.length < 5) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Insira um usuário com 5 dígitos ou mais!'
+			});
+		} else if (nome.length < 5) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Insira um nome com 5 dígitos ou mais!'
+			});
+		} else if (cep.length < 8) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Insira um CEP válido!'
 			});
 		} else {
 			$.ajax({
@@ -90,6 +112,6 @@ $(document).ready(function(){
 					}
 				}
 			});
-		}
+		}*/
 	});
 });
