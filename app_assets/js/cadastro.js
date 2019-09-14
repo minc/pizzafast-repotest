@@ -45,8 +45,7 @@ $(document).ready(function(){
 		var ddd = $("#txtDDD").val();
 		var celular = $("#txtCelular").val();
 		var email = $("#txtEmail").val();
-		console.log(cep);
-		/*if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
+		if (nome == "" || nome == null || nome == undefined || usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined || confirmaSenha == "" || confirmaSenha == null || confirmaSenha == undefined || cep == "" || cep == null || cep == undefined || uf == "" || uf == null || uf == undefined || logradouro == "" || logradouro == null || logradouro == undefined || numero == "" || numero == null || numero == undefined || bairro == "" || bairro == null || bairro == undefined || cidade == "" || cidade == null || cidade == undefined || ddd == "" || ddd == null || ddd == undefined || celular == "" || celular == null || celular == undefined || email == "" || email == null || email == undefined) {
 			Swal.fire({
 				type: 'error',
 				title: 'Erro!',
@@ -112,6 +111,6 @@ $(document).ready(function(){
 					}
 				}
 			});
-		}*/
+		}
 	});
 });
