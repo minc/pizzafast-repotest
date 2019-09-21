@@ -1,17 +1,3 @@
-function Onlynumbers(e) {
-	var tecla = new Number();
-	if (window.event) {
-		tecla = e.keyCode;
-	} else if (e.which) {
-		tecla = e.which;
-	} else {
-		return true;
-	}
-	if ((tecla >= "97") && (tecla <= "122")) {
-		return false;
-	}
-}
-
 function Onlychars(e) {
 	var tecla = new Number();
 	if (window.event) {
@@ -153,11 +139,28 @@ $(document).ready(function(){
 				data: { nome : nome, usuario : usuario, senha : senha, cep : cep, uf : uf, logradouro : logradouro, numero : numero, complemento : complemento, bairro : bairro, cidade : cidade, ddd : ddd, celular : celular, email : email },
 				success: function(resultado){
 					if (resultado == 1) {
+						let timerInterval;
 						Swal.fire({
-							type: 'success',
-						  	title: 'Sucesso!',
-						  	text: 'Cadastro realizado com sucesso!',
-						  	footer: '<a href="index.html">Fazer login?</a>'
+							title: 'Cadastro realizado com sucesso!',
+						  	html: 'Você será direcionado ao login em <strong></strong> milisegundos.',
+						  	timer: 3000,
+						  	onBeforeOpen: () => {
+						    	Swal.showLoading()
+						    	timerInterval = setInterval(() => {
+						      		Swal.getContent().querySelector('strong')
+						        	.textContent = Swal.getTimerLeft()
+						    	}, 100)
+						  	},
+						  	onClose: () => {
+						    	clearInterval(timerInterval)
+						  	}
+						}).then((result) => {
+						  	if (
+						    	/* Read more about handling dismissals below */
+						    	result.dismiss === Swal.DismissReason.timer
+						  	) {
+						    	console.log('I was closed by the timer');
+						  	}
 						});
 					} else if (resultado == 2) {
 						Swal.fire({
