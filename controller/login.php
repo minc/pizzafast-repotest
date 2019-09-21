@@ -22,7 +22,7 @@
 			LOGIN_CLI = '" . $usuario . "'")) {
 		if ($result->num_rows > 0) {
 			$rowCliente = $result->fetch_array(MYSQLI_ASSOC);
-			echo $rowCliente;
+			print $rowCliente["ID_CLI"];
 		} else {
 			echo "Não entrou no IF!";
 		}
