@@ -2,8 +2,8 @@
 
 	include("factoryConn.php");
 
-	$usuario = $_POST["usuario"];
-	$senha = $_POST["senha"];
+	$usuario = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["usuario"])));
+	$senha = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["senha"])));
 
 	/* check connection */
 	if ($mysqli->connect_errno){
@@ -13,17 +13,16 @@
 
 	if ($result = mysqli_query($mysqli,
 		"SELECT
-			ID_USUARIO, NOME_USUARIO
+			ID_CLI,
+			NOME_CLI,
+			SENHA_CLI
 		FROM
-			USUARIO
+			CLIENTE
 		WHERE
-			LOGIN_USUARIO = '" . $usuario . "'
-		AND
-			SENHA_USUARIO = '" . $senha . "'")) {
-		if (mysqli_num_rows($result) == 1) {
-			$row = $result->fetch_array(MYSQLI_ASSOC);
-			echo $row;
-			$result->close();
+			LOGIN_CLI = '" . $usuario . "'")) {
+		if ($result->num_rows > 0) {
+			$rowCliente = $result->fetch_array(MYSQLI_ASSOC);
+			echo $rowCliente;
 		} else {
 			echo "Não entrou no IF!";
 		}
