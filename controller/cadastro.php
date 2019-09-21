@@ -1,12 +1,13 @@
 <?php
 
 	include("factoryConn.php");
+	require("password_compat-master/lib/password.php");
 
 	$mysqli->autocommit(FALSE);
 
 	$nome = $_POST["nome"];
 	$usuario = $_POST["usuario"];
-	$senha = $_POST["senha"];
+	$senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
 	$cep = $_POST["cep"];
 	$uf = $_POST["uf"];
 	$logradouro = $_POST["logradouro"];
