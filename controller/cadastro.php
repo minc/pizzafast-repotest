@@ -48,7 +48,7 @@
 
 	//verifica se as informações de endereço e contato já foram cadastradas antes.
 
-	if ($result = mysql_query($mysqli,
+	if ($result = mysqli_query($mysqli,
 		"SELECT
 			ID_END
 		FROM
@@ -194,7 +194,7 @@
 	//realiza os UPDATEs de ligação das tabelas da base de dados.
 
 	if (!$enderecoBase) {
-		if ($result = mysql_query($mysqli,
+		if ($result = mysqli_query($mysqli,
 			"SELECT
 				ID_END
 			FROM
