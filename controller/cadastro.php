@@ -180,13 +180,13 @@
 			}
 		} else {
 			$mysqli->rollback();
-			echo -1;
+			echo 0;
 			$mysqli->close();
 			exit;
 		}
 	} else {
 		$mysqli->rollback();
-		echo 0;
+		echo -1;
 		$mysqli->close();
 		exit;
 	}
@@ -217,7 +217,7 @@
 			}
 		} else {
 			$mysqli->rollback();
-			echo 0;
+			echo -2;
 			$mysqli->close();
 			exit;
 		}
@@ -240,7 +240,7 @@
 			EMAIL_CLI = '" . $email . "'")) {
 		if ($mysqli->affected_rows == 0) {
 			$mysqli->rollback();
-			echo 0;
+			echo -3;
 			$mysqli->close();
 			exit;
 		} else {
@@ -262,20 +262,20 @@
 					exit;
 				} else {
 					$mysqli->rollback();
-					echo 0;
+					echo -4;
 					$mysqli->close();
 					exit;
 				}
 			} else {
 				$mysqli->rollback();
-				echo 0;
+				echo -5;
 				$mysqli->close();
 				exit;
 			}
 		}
 	} else {
 		$mysqli->rollback();
-		echo 0;
+		echo -6;
 		$mysqli->close();
 		exit;
 	}
