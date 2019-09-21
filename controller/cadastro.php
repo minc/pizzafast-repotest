@@ -186,7 +186,7 @@
 		}
 	} else {
 		$mysqli->rollback();
-		echo -1;
+		echo 0;
 		$mysqli->close();
 		exit;
 	}
@@ -217,11 +217,26 @@
 			}
 		} else {
 			$mysqli->rollback();
-			echo -2;
+			echo 0;
 			$mysqli->close();
 			exit;
 		}
 	}
+
+	echo "UPDATE
+			CLIENTE
+		SET
+			ENDERECO_ID_END = '" . $idEndereco . "'
+		WHERE
+			NOME_CLI = '" . $nome . "'
+		AND
+			LOGIN_CLI = '" . $usuario . "'
+		AND
+			STATUS_CLI = '1'
+		AND
+			SENHA_CLI = '" . $senha . "'
+		AND
+			EMAIL_CLI = '" . $email . "'";
 
 	if (mysqli_query($mysqli,
 		"UPDATE
@@ -240,7 +255,7 @@
 			EMAIL_CLI = '" . $email . "'")) {
 		if ($mysqli->affected_rows == 0) {
 			$mysqli->rollback();
-			echo -3;
+			echo 0;
 			$mysqli->close();
 			exit;
 		} else {
@@ -262,20 +277,20 @@
 					exit;
 				} else {
 					$mysqli->rollback();
-					echo -4;
+					echo 0;
 					$mysqli->close();
 					exit;
 				}
 			} else {
 				$mysqli->rollback();
-				echo -5;
+				echo 0;
 				$mysqli->close();
 				exit;
 			}
 		}
 	} else {
 		$mysqli->rollback();
-		echo -6;
+		echo 0;
 		$mysqli->close();
 		exit;
 	}
