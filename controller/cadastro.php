@@ -5,19 +5,19 @@
 
 	$mysqli->autocommit(FALSE);
 
-	$nome = $_POST["nome"];
-	$usuario = $_POST["usuario"];
+	$nome = utf8_encode($_POST["nome"]);
+	$usuario = utf8_encode($_POST["usuario"]);
 	$senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
-	$cep = $_POST["cep"];
-	$uf = $_POST["uf"];
-	$logradouro = $_POST["logradouro"];
-	$numero = $_POST["numero"];
-	$complemento = $_POST["complemento"];
-	$bairro = $_POST["bairro"];
-	$cidade = $_POST["cidade"];
-	$ddd = $_POST["ddd"];
-	$celular = $_POST["celular"];
-	$email = $_POST["email"];
+	$cep = utf8_encode($_POST["cep"]);
+	$uf = utf8_encode($_POST["uf"]);
+	$logradouro = utf8_encode($_POST["logradouro"]);
+	$numero = utf8_encode($_POST["numero"]);
+	$complemento = utf8_encode($_POST["complemento"]);
+	$bairro = utf8_encode($_POST["bairro"]);
+	$cidade = utf8_encode($_POST["cidade"]);
+	$ddd = utf8_encode($_POST["ddd"]);
+	$celular = utf8_encode($_POST["celular"]);
+	$email = utf8_encode($_POST["email"]);
 
 	$dataAtual = date("Y-m-d H:i:s");
 
