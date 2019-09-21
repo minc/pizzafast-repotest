@@ -5,19 +5,19 @@
 
 	$mysqli->autocommit(FALSE);
 
-	$nome = utf8_encode($_POST["nome"]);
-	$usuario = utf8_encode($_POST["usuario"]);
+	$nome = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["nome"])));
+	$usuario = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["usuario"])));
 	$senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
-	$cep = utf8_encode($_POST["cep"]);
-	$uf = utf8_encode($_POST["uf"]);
-	$logradouro = utf8_encode($_POST["logradouro"]);
-	$numero = utf8_encode($_POST["numero"]);
-	$complemento = utf8_encode($_POST["complemento"]);
-	$bairro = utf8_encode($_POST["bairro"]);
-	$cidade = utf8_encode($_POST["cidade"]);
-	$ddd = utf8_encode($_POST["ddd"]);
-	$celular = utf8_encode($_POST["celular"]);
-	$email = utf8_encode($_POST["email"]);
+	$cep = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["cep"])));
+	$uf = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["uf"])));
+	$logradouro = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["logradouro"])));
+	$numero = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["numero"])));
+	$complemento = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["complemento"])));
+	$bairro = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["bairro"])));
+	$cidade = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["cidade"])));
+	$ddd = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["ddd"])));
+	$celular = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["celular"])));
+	$email = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["email"])));
 
 	$dataAtual = date("Y-m-d H:i:s");
 
