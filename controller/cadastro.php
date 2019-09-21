@@ -48,23 +48,6 @@
 
 	//verifica se as informações de endereço e contato já foram cadastradas antes.
 
-	echo "SELECT
-			ID_END
-		FROM
-			ENDERECO
-		WHERE
-			LOGRADOURO_END = '" . $logradouro . "'
-		AND
-			NUMERO_END = '" . $numero . "'
-		AND
-			BAIRRO_END = '" . $bairro . "'
-		AND
-			CEP_END = '" . $cep . "'
-		AND
-			CIDADE_END = '" . $cidade . "'
-		AND
-			UF_END = '" . $uf . "'";
-
 	if ($result = mysqli_query($mysqli,
 		"SELECT
 			ID_END
@@ -85,7 +68,6 @@
 		if ($result->num_rows > 0) {
 			$enderecoBase = true;
 			$rowEndereco = $result->fetch_array(MYSQLI_ASSOC);
-			echo $rowEndereco;
 			$idEndereco = $rowEndereco["ID_END"];
 		} else {
 			$enderecoBase = false;
@@ -240,21 +222,6 @@
 			exit;
 		}
 	}
-
-	echo "UPDATE
-			CLIENTE
-		SET
-			ENDERECO_ID_END = '" . $idEndereco . "'
-		WHERE
-			NOME_CLI = '" . $nome . "'
-		AND
-			LOGIN_CLI = '" . $usuario . "'
-		AND
-			STATUS_CLI = '1'
-		AND
-			SENHA_CLI = '" . $senha . "'
-		AND
-			EMAIL_CLI = '" . $email . "'";
 
 	if (mysqli_query($mysqli,
 		"UPDATE
