@@ -36,7 +36,7 @@
 				$mysqli->close();
 				exit;
 			} else {
-				echo 1;
+				echo $rowCliente;
 				$mysqli->close();
 				exit;
 			}
