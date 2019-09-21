@@ -15,28 +15,40 @@
 		"SELECT
 			ID_CLI,
 			NOME_CLI,
-			SENHA_CLI
+			DATA_CADASTRO_CLI,
+			STATUS_CLI,
+			DATA_ACESSO_CLI,
+			SENHA_CLI,
+			ENDERECO_ID_END,
+			EMAIL_CLI
 		FROM
 			CLIENTE
 		WHERE
 			LOGIN_CLI = '" . $usuario . "'")) {
 		if ($result->num_rows > 0) {
 			$rowCliente = $result->fetch_array(MYSQLI_ASSOC);
-			print $rowCliente["ID_CLI"];
+			if (!password_verify($senha, $rowCliente["SENHA_CLI"])) {
+				echo 2;
+				$mysqli->close();
+				exit;
+			} else if ($rowCliente["STATUS_CLI"] != "1") {
+				echo 3;
+				$mysqli->close();
+				exit;
+			} else {
+				echo 1;
+				$mysqli->close();
+				exit;
+			}
 		} else {
-			echo "Não entrou no IF!";
+			echo 2;
+			$mysqli->close();
+			exit;
 		}
 	} else {
-		echo "Falha na query!";
+		echo 0;
+		$mysqli->close();
+		exit;
 	}
-
-	$mysqli->close();
-
-	/*if ($result = mysqli_query($mysqli, "SELECT Name FROM City LIMIT 10")) {
-		printf("Select returned %d rows.\n", mysqli_num_rows($result));
-
-		/* free result set */
-		/*mysqli_free_result($result);
-	}*/
 
 ?>
