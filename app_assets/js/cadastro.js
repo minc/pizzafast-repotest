@@ -87,7 +87,7 @@ $(document).ready(function(){
 		var complemento = $("#txtComplemento").val();
 		var bairro = $("#txtBairro").val();
 		var cidade = $("#txtCidade").val();
-		var ddd = $("#txtDDD").val();
+		var ddd = $("#selDDD").val();
 		var celularFormatado = $("#txtCelular").val();
 		var celular = celularFormatado.split(" ")[0] + celularFormatado.split("-")[0].substr(2, 4) + celularFormatado.split("-")[1];
 		var email = $("#txtEmail").val();
