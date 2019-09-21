@@ -168,13 +168,13 @@
 					//$mysqli->commit();
 				} else {
 					$mysqli->rollback();
-					echo 0;
+					echo -1;
 					$mysqli->close();
 					exit;
 				}
 			} else {
 				$mysqli->rollback();
-				echo -1;
+				echo 0;
 				$mysqli->close();
 				exit;
 			}
