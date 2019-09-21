@@ -126,7 +126,6 @@
 				)")) {
 		if ($mysqli->affected_rows == 0 || $enderecoBase) {
 			$mysqli->rollback();
-			echo "end";
 		}
 		if (mysqli_query($mysqli,
 			"INSERT INTO
@@ -144,7 +143,6 @@
 					)")) {
 			if ($mysqli->affected_rows == 0 || $contatoBase) {
 				$mysqli->rollback();
-				echo "cont";
 			}
 			if (mysqli_query($mysqli,
 				"INSERT INTO
@@ -176,7 +174,7 @@
 				}
 			} else {
 				$mysqli->rollback();
-				echo 0;
+				echo -1;
 				$mysqli->close();
 				exit;
 			}
