@@ -48,6 +48,23 @@
 
 	//verifica se as informações de endereço e contato já foram cadastradas antes.
 
+	echo "SELECT
+			ID_END
+		FROM
+			ENDERECO
+		WHERE
+			LOGRADOURO_END = '" . $logradouro . "'
+		AND
+			NUMERO_END = '" . $numero . "'
+		AND
+			BAIRRO_END = '" . $bairro . "'
+		AND
+			CEP_END = '" . $cep . "'
+		AND
+			CIDADE_END = '" . $cidade . "'
+		AND
+			UF_END = '" . $uf . "'";
+
 	if ($result = mysqli_query($mysqli,
 		"SELECT
 			ID_END
