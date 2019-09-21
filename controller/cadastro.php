@@ -67,7 +67,7 @@
 			UF_END = '" . $uf . "'")) {
 		if ($result->num_rows > 0) {
 			$enderecoBase = true;
-			$rowEndereco = $result->fetch_array(MYSQLI_ASSOC);
+			echo $rowEndereco = $result->fetch_array(MYSQLI_ASSOC);
 			$idEndereco = $rowEndereco["ID_END"];
 		} else {
 			$enderecoBase = false;
