@@ -159,7 +159,7 @@ $(document).ready(function(){
 						    	/* Read more about handling dismissals below */
 						    	result.dismiss === Swal.DismissReason.timer
 						  	) {
-						    	console.log('I was closed by the timer');
+						    	location.href = "index.html";
 						  	}
 						});
 					} else if (resultado == 2) {
