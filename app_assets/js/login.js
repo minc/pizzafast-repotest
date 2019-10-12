@@ -7,7 +7,8 @@ $(document).ready(function(){
 			url: "http://pizzafast.minc.net.br/pizzafast-repotest/controller/login.php",
 			data: { usuario: usuario, senha: senha },
 			success: function(resultado){
-				console.log(resultado);
+				var prefixo = resultado.split("|")[0];
+				console.log(prefixo);
 			}
 		});
 	});
