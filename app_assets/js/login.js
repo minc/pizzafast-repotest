@@ -8,7 +8,28 @@ $(document).ready(function(){
 			data: { usuario: usuario, senha: senha },
 			success: function(resultado){
 				var prefixo = resultado.split("|")[0];
-				console.log(prefixo);
+				var result = resultado.split("|");
+				if (prefixo == "senha") {
+					Swal.fire({
+						type: 'error',
+						title: 'Erro!',
+						text: 'Informações de acesso incorretas!'
+					});
+				} else if (prefixo == "status") {
+					Swal.fire({
+						type: 'error',
+						title: 'Erro!',
+						text: 'O usuário informado está inativo!'
+					});
+				} else if (prefixo == "falha") {
+					Swal.fire({
+						type: 'error',
+						title: 'Erro!',
+						text: 'Falha ao realizar o acesso!'
+					});
+				} else {
+					console.log(prefixo);
+				}
 			}
 		});
 	});
