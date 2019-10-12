@@ -13,14 +13,14 @@
 
 	if ($result = mysqli_query($mysqli,
 		"SELECT
-			?
+			ID_CLI
 		FROM
 			CLIENTE
 		WHERE
 			LOGIN_CLI = '" . $usuario . "'
 		AND
 			EMAIL_CLI = '" . $email . "'")) {
-
+		
 	}
 
 ?>
