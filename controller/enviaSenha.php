@@ -2,7 +2,9 @@
 
 	include("factoryConn.php");
 
-	$email = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["email"])));
+	echo $usuario = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["usuario"])));
+	echo $email = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["email"])));
+	exit();
 
 	if ($mysqli->connect_errno) {
 		printf("A conexão falhou: %s\n", $mysqli->connect_error);
@@ -15,6 +17,10 @@
 		FROM
 			CLIENTE
 		WHERE
-			EMAIL_CLI = '" . $email . "'")) {}
+			LOGIN_CLI = '" . $usuario . "'
+		AND
+			EMAIL_CLI = '" . $email . "'")) {
+
+	}
 
 ?>
