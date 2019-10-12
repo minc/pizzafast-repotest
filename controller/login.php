@@ -36,7 +36,7 @@
 				$mysqli->close();
 				exit;
 			} else {
-				echo $rowCliente["ID_CLI"] . "|" . $rowCliente["NOME_CLI"] . "|" . $rowCliente["DATA_CADASTRO_CLI"] . "|" . $rowCliente["STATUS_CLI"] . "|" . $rowCliente["DATA_ACESSO_CLI"] . "|" . $rowCliente["SENHA_CLI"] . "|" . $rowCliente["ENDERECO_ID_END"] . "|" . $rowCliente["EMAIL_CLI"] . "|" . $usuario;
+				echo $rowCliente["ID_CLI"] . "|" . $rowCliente["NOME_CLI"] . "|" . $rowCliente["DATA_CADASTRO_CLI"] . "|" . $rowCliente["STATUS_CLI"] . "|" . $rowCliente["DATA_ACESSO_CLI"] . "|" . $rowCliente["ENDERECO_ID_END"] . "|" . $rowCliente["EMAIL_CLI"] . "|" . $usuario;
 				$mysqli->close();
 				exit;
 			}

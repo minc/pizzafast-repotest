@@ -28,7 +28,15 @@ $(document).ready(function(){
 						text: 'Falha ao realizar o acesso!'
 					});
 				} else {
-					console.log(prefixo);
+					window.localStorage.setItem("idCliente", result[0]);
+					window.localStorage.setItem("nomeCliente", result[1]);
+					window.localStorage.setItem("dataCadastroCliente", result[2]);
+					window.localStorage.setItem("statusCliente", result[3]);
+					window.localStorage.setItem("dataAcessoCliente", result[4]);
+					window.localStorage.setItem("idEnderecoCliente", result[5]);
+					window.localStorage.setItem("emailCliente", result[6]);
+					window.localStorage.setItem("usuarioCliente", result[7]);
+					console.log(window.localStorage);
 				}
 			}
 		});
