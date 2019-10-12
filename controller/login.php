@@ -28,65 +28,25 @@
 		if ($result->num_rows > 0) {
 			$rowCliente = $result->fetch_array(MYSQLI_ASSOC);
 			if (!password_verify($senha, $rowCliente["SENHA_CLI"])) {
-				echo "senha";
-				echo "senha";
-				echo "senha";
-				echo "senha";
-				echo "senha";
-				echo "senha";
-				echo "senha";
-				echo "senha";
-				echo "senha";
+				echo "senha" . "|";
 				$mysqli->close();
 				exit;
 			} else if ($rowCliente["STATUS_CLI"] != "1") {
-				echo "status";
-				echo "status";
-				echo "status";
-				echo "status";
-				echo "status";
-				echo "status";
-				echo "status";
-				echo "status";
-				echo "status";
+				echo "status" . "|";
 				$mysqli->close();
 				exit;
 			} else {
-				echo $rowCliente["ID_CLI"];
-				echo $rowCliente["NOME_CLI"];
-				echo $rowCliente["DATA_CADASTRO_CLI"];
-				echo $rowCliente["STATUS_CLI"];
-				echo $rowCliente["DATA_ACESSO_CLI"];
-				echo $rowCliente["SENHA_CLI"];
-				echo $rowCliente["ENDERECO_ID_END"];
-				echo $rowCliente["EMAIL_CLI"];
-				echo $usuario;
+				echo $rowCliente["ID_CLI"] . "|" . $rowCliente["NOME_CLI"] . "|" . $rowCliente["DATA_CADASTRO_CLI"] . "|" . $rowCliente["STATUS_CLI"] . "|" . $rowCliente["DATA_ACESSO_CLI"] . "|" . $rowCliente["SENHA_CLI"] . "|" . $rowCliente["ENDERECO_ID_END"] . "|" . $rowCliente["EMAIL_CLI"] . "|" . $usuario;
 				$mysqli->close();
 				exit;
 			}
 		} else {
-			echo "senha";
-			echo "senha";
-			echo "senha";
-			echo "senha";
-			echo "senha";
-			echo "senha";
-			echo "senha";
-			echo "senha";
-			echo "senha";
+			echo "senha" . "|";
 			$mysqli->close();
 			exit;
 		}
 	} else {
-		echo "falha";
-		echo "falha";
-		echo "falha";
-		echo "falha";
-		echo "falha";
-		echo "falha";
-		echo "falha";
-		echo "falha";
-		echo "falha";
+		echo "falha" . "|";
 		$mysqli->close();
 		exit;
 	}
