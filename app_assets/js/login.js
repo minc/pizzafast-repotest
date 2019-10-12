@@ -36,7 +36,7 @@ $(document).ready(function(){
 					window.localStorage.setItem("idEnderecoCliente", result[5]);
 					window.localStorage.setItem("emailCliente", result[6]);
 					window.localStorage.setItem("usuarioCliente", result[7]);
-					console.log(window.localStorage);
+					location.href = "home.html";
 				}
 			}
 		});
