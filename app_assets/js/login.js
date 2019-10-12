@@ -6,8 +6,8 @@ $(document).ready(function(){
 			type: "POST",
 			url: "http://pizzafast.minc.net.br/pizzafast-repotest/controller/login.php",
 			data: { usuario: usuario, senha: senha },
-			success: function(resultado){
-				console.log(resultado);
+			success: function(resultado1){
+				console.log(resultado1);
 			}
 		});
 	});

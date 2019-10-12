@@ -1,5 +1,6 @@
 <?php
 
+	exit();
 	include("factoryConn.php");
 
 	$usuario = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST["usuario"])));
@@ -51,4 +52,4 @@
 		exit;
 	}
 
-?> 
+?>
