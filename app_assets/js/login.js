@@ -2,6 +2,13 @@ $(document).ready(function(){
 	$("#btnLogin").click(function(){
 		var usuario = $("#txtUsuario").val();
 		var senha = $("#passSenha").val();
+		if (usuario == "" || usuario == null || usuario == undefined || senha == "" || senha == null || senha == undefined) {
+			Swal.fire({
+				type: 'error',
+				title: 'Erro!',
+				text: 'Preencha todos os campos obrigatórios!'
+			});
+		}
 		$.ajax({
 			type: "POST",
 			url: "http://pizzafast.minc.net.br/pizzafast-repotest/controller/login.php",
